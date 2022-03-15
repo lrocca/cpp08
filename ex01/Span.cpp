@@ -1,74 +1,68 @@
-#include <iostream>
 #include "Span.hpp"
 
 Span::Span() {}
 
-Span::Span(unsigned int size): _array(nullptr), _index(0), _size(size)
+Span::Span(unsigned int size): _size(size)
 {
 	if (!size)
 		throw InvalidSizeException();
-	_array = new int[size];
 }
 
-Span::Span(const Span& other): _array(nullptr), _index(0), _size(other._size)
+Span::Span(const Span& other): _size(other._size)
 {
 	*this = other;
 }
 
-Span::~Span()
-{
-	delete[] _array;
-}
+Span::~Span() {}
 
 Span&	Span::operator=(const Span& other)
 {
 	if (this != &other)
 	{
-		_index = other._index;
 		_size = other._size;
-		delete[] _array;
-		_array = new int[_size];
-		for (size_t i = 0; i < _index; i++)
-			_array[i] = other._array[i];
+		_numbers = other._numbers;
 	}
 	return *this;
 }
 
 void	Span::addNumber(int n)
 {
-	if (_index == _size)
+	if (_numbers.size() == _size)
 		throw NoElementsLeftException();
-	_array[_index++] = n;
+	_numbers.push_back(n);
 }
 
 unsigned int	Span::shortestSpan() const
 {
-	if (_index == 0)
+	if (_numbers.size() < 2)
 		throw NoElementsException();
 
-	unsigned int span = 0;
+	// std::sort(_numbers.begin(), _numbers.end());
+
+	unsigned int span = -1;
 	unsigned int tmp = 0;
 
-	for (size_t i = 0; i < _index; i++)
-		if ((tmp = abs(_array[i] - _array[i + 1])) < span)
+	std::vector<int>::const_iterator it = _numbers.begin();
+
+	while (it < _numbers.end())
+	{
+		if ((tmp = std::abs(*it - *(it + 1))) < span)
 			span = tmp;
+		++it;
+	}
 
 	return span;
 }
 
 unsigned int	Span::longestSpan() const
 {
-	if (_index == 0)
+	if (_numbers.size() < 2)
 		throw NoElementsException();
 
-	unsigned int span = 0;
-	unsigned int tmp = 0;
+	std::vector<int>::const_iterator min = std::max_element(_numbers.begin(), _numbers.end());
+	std::vector<int>::const_iterator max = std::min_element(_numbers.begin(), _numbers.end());
 
-	for (size_t i = 0; i < _index - 1; i++)
-		if ((tmp = abs(_array[i] - _array[i + 1])) > span)
-			span = tmp;
-
-	return span;
+	return std::abs(*max - *min);
 }
 
 const char*	Span::InvalidSizeException::what() const throw()
