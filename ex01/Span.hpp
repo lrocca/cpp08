@@ -23,7 +23,7 @@ class Span
 		void			addNumber(int n);
 		void			addNumber(std::vector<int>::const_iterator &it1, std::vector<int>::const_iterator &it2);
 
-		unsigned int	shortestSpan() const;
+		unsigned int	shortestSpan();
 		unsigned int	longestSpan() const;
 
 		class InvalidSizeException: public std::exception

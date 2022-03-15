@@ -32,12 +32,12 @@ void	Span::addNumber(int n)
 	_numbers.push_back(n);
 }
 
-unsigned int	Span::shortestSpan() const
+unsigned int	Span::shortestSpan()
 {
 	if (_numbers.size() < 2)
 		throw NoElementsException();
 
-	// std::sort(_numbers.begin(), _numbers.end());
+	std::sort(_numbers.begin(), _numbers.end());
 
 	unsigned int span = -1;
 	unsigned int tmp = 0;
