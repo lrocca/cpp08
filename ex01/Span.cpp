@@ -32,6 +32,17 @@ void	Span::addNumber(int n)
 	_numbers.push_back(n);
 }
 
+void	Span::addNumber(std::vector<int>::const_iterator &it1, std::vector<int>::const_iterator &it2)
+{
+	while (it1 < it2)
+	{
+		if (_numbers.size() == _size)
+			throw NoElementsLeftException();
+		_numbers.push_back(*it1);
+		++it1;
+	}
+}
+
 unsigned int	Span::shortestSpan()
 {
 	if (_numbers.size() < 2)
