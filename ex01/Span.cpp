@@ -43,7 +43,7 @@ void	Span::addNumber(std::vector<int>::const_iterator it1, std::vector<int>::con
 	}
 }
 
-unsigned int	Span::shortestSpan()
+unsigned long	Span::shortestSpan()
 {
 	if (_numbers.size() < 2)
 		throw NoElementsException();
@@ -65,15 +65,15 @@ unsigned int	Span::shortestSpan()
 	return span;
 }
 
-unsigned int	Span::longestSpan() const
+unsigned long	Span::longestSpan() const
 {
 	if (_numbers.size() < 2)
 		throw NoElementsException();
 
-	std::vector<int>::const_iterator min = std::max_element(_numbers.begin(), _numbers.end());
-	std::vector<int>::const_iterator max = std::min_element(_numbers.begin(), _numbers.end());
+	std::vector<int>::const_iterator min = std::min_element(_numbers.begin(), _numbers.end());
+	std::vector<int>::const_iterator max = std::max_element(_numbers.begin(), _numbers.end());
 
-	return std::abs(*max - *min);
+	return std::labs(long(*min) - long(*max));
 }
 
 const char*	Span::InvalidSizeException::what() const throw()
