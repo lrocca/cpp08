@@ -32,7 +32,7 @@ void	Span::addNumber(int n)
 	_numbers.push_back(n);
 }
 
-void	Span::addNumber(std::vector<int>::const_iterator &it1, std::vector<int>::const_iterator &it2)
+void	Span::addNumber(std::vector<int>::const_iterator it1, std::vector<int>::const_iterator it2)
 {
 	while (it1 < it2)
 	{
